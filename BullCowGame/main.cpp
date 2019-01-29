@@ -11,12 +11,13 @@
 
 using namespace std;
 
-// declare global variables
-string Guess = "";
-// declare global functions
+// declare global function prototypes
 void PrintIntro();
 void PlayGame();
 string GetGuess();
+void PrintBack();
+// declare global variables
+string Guess = "";
 int NoOfTries = 5;
 
 int main() {
@@ -25,7 +26,7 @@ int main() {
 //none
     
 // introduce the game
-    PrintIntro();
+	PrintIntro();
     
 // play game
     PlayGame ();
@@ -43,11 +44,12 @@ void PrintIntro() {
 
 void PlayGame() {
     for (int x=1;x<=NoOfTries;x++) {
+		
         //Get Guess function
         GetGuess();
+		
         // Return the players Guess
-        cout << "Your guess was " << Guess << endl;
-        cout << endl;
+		PrintBack();
     }
 }
 
@@ -55,6 +57,12 @@ string GetGuess() {
     // get the players Guess
     getline (cin,Guess);
     return Guess;
+}
+
+void PrintBack() {
+	cout << "Your guess was " << Guess << endl;
+	cout << endl;
+	return;
 }
 
 // end script ##BULLANDCOWGAME##

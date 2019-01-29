@@ -11,35 +11,24 @@
 
 using namespace std;
 
-/*
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
-}
-*/
-
 // declare global variables
 string Guess = "";
 // declare global functions
 void PrintIntro();
+void PlayGame();
 string GetGuess();
+int NoOfTries = 5;
 
-int main(){
+int main() {
     
 // declare variables in main
-    int NoOfTries = 5;
+//none
     
 // introduce the game
     PrintIntro();
     
-
-    for (int x=1;x<=NoOfTries;x++) {
-//Get Guess function
-    GetGuess();
-// Return the players Guess
-        cout << "Your guess was " << Guess << endl;
-    }
+// play game
+    PlayGame ();
     
     return 0;
 }
@@ -52,8 +41,20 @@ void PrintIntro() {
     cout << "Can you guess the " << WORD_LENGTH << " letter isogram word I am thinking of?\n";
 }
 
+void PlayGame() {
+    for (int x=1;x<=NoOfTries;x++) {
+        //Get Guess function
+        GetGuess();
+        // Return the players Guess
+        cout << "Your guess was " << Guess << endl;
+        cout << endl;
+    }
+}
+
 string GetGuess() {
     // get the players Guess
     getline (cin,Guess);
     return Guess;
 }
+
+// end script ##BULLANDCOWGAME##

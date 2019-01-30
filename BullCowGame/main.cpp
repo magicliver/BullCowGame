@@ -16,6 +16,8 @@ void PrintIntro();
 void PlayGame();
 string GetGuess();
 void PrintBack();
+bool PlayAgain();
+
 // declare global variables
 string Guess = "";
 int NoOfTries = 5;
@@ -23,14 +25,18 @@ int NoOfTries = 5;
 int main() {
     
 // declare variables in main
-//none
+// none
     
 // introduce the game
 	PrintIntro();
     
 // play game
-    PlayGame ();
-    
+	do {
+		PlayGame ();
+	}
+	// Ask if want to play again
+	while (PlayAgain() == true);
+
     return 0;
 }
 
@@ -44,10 +50,8 @@ void PrintIntro() {
 
 void PlayGame() {
     for (int x=1;x<=NoOfTries;x++) {
-		
         //Get Guess function
         GetGuess();
-		
         // Return the players Guess
 		PrintBack();
     }
@@ -63,6 +67,15 @@ void PrintBack() {
 	cout << "Your guess was " << Guess << endl;
 	cout << endl;
 	return;
+}
+
+bool PlayAgain() {
+	cout << "Do you want play again?";
+	string Response = "";
+	getline(cin,Response);
+	//cout << "Is it y/Y?" << (Response[0] == 'y'|| Response[0] == 'Y');
+	//cout << endl;
+	return (Response[0] == 'y'|| Response[0] == 'Y');
 }
 
 // end script ##BULLANDCOWGAME##

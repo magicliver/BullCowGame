@@ -23,19 +23,14 @@ string Guess = "";
 int NoOfTries = 5;
 
 int main() {
-    
-// declare variables in main
-// none
-    
-// introduce the game
-	PrintIntro();
-    
+	
 // play game
 	do {
+		PrintIntro();
 		PlayGame ();
 	}
 	// Ask if want to play again
-	while (PlayAgain() == true);
+	while (PlayAgain());
 
     return 0;
 }

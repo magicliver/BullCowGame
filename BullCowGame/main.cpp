@@ -29,7 +29,7 @@ void PrintIntro();
 void PlayGame();
 int32 GetHiddenWordLength();
 FText GetValidGuess();
-void PrintBack();
+void PrintGameSummary();
 bool PlayAgain();
 
 
@@ -82,7 +82,7 @@ void PlayGame() {
 
     }
 	//TODO: summarize game
-	//PlayGameSummary();
+	PrintGameSummary();
 	return;
 }
 
@@ -119,13 +119,18 @@ FText GetValidGuess() {
 	return Guess;
 }
 
-/* Redundant function all now handled in PlayGame
-void PrintBack() {
-	std::cout << "Your guess was " << Guess << std::endl;
-	std::cout << std::endl;
+
+void PrintGameSummary() {
+	if (BCGame.IsGameWon()) {
+		std::cout << "Congratulations. You are full of Bulls!! :) " << std::endl;
+	}
+	else
+	{
+		std::cout << "Unlucky, you are out of Tries!! :( " << std::endl;
+	}
 	return;
 }
-*/
+
 
 bool PlayAgain() {
 	std::cout << "\nDo you want play again?";

@@ -37,19 +37,42 @@ void FBullCowGame::Reset() {
     const FString HIDDEN_WORD = "hornets";
     MyHiddenWord = HIDDEN_WORD;
     MyCurrentTry = 1;
+    bGameIsWon = false;
     return;
 }
 
 bool FBullCowGame::IsGameWon() const {
-    return false;
+    return bGameIsWon;
 }
 
-bool FBullCowGame::CheckGuessValidity(FString) const {
-    return false;
+EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const {
+    if (false) { // if the guess is Not_Isogram
+        return EGuessStatus::Not_Isogram;
+        }
+// if the guess Not_Enough_Letters
+    else if (Guess.length() < GetHiddenWordLength()) {
+        return EGuessStatus::Not_Enough_Letters;
+    }
+// if the guess Too_Many_Letters
+    else if (Guess.length() > GetHiddenWordLength()) {
+        return EGuessStatus::Too_Many_Letters;
+    }
+// if the guess Not_Alpha_Numeric
+    else if (false) {
+        return EGuessStatus::Non_Alphabetic_Characters;
+    }
+// if the guess Not_Lower_Case
+    else if (false) {
+        return EGuessStatus::Not_Lower_Case;
+    }
+// otherwise
+        else {
+            return EGuessStatus::OK;
+    }
 }
 
 //Receive VALID guess, increment turn and return count
-FBullCowCount FBullCowGame::SubmitGuess(FString Guess){
+FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess){
     //increment turn number if valid
     MyCurrentTry++;
     //debug code: std::cout << "Test we got the uses Guess: " << Guess;
@@ -75,6 +98,11 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess){
             }
         }
     }
-    
+    if (BullCowCount.Bulls == GetHiddenWordLength()) {
+        bGameIsWon = true;
+    }
+    else {
+        bGameIsWon = false;
+    }
     return BullCowCount;
 }

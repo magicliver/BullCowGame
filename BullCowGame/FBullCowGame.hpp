@@ -25,6 +25,16 @@ struct FBullCowCount {
     int32 Cows = 0;
 };
 
+enum class EGuessStatus {
+    Invalid,
+    OK,
+    Not_Isogram,
+    Not_Enough_Letters,
+    Too_Many_Letters,
+    Non_Alphabetic_Characters,
+    Not_Lower_Case
+};
+
 class FBullCowGame {
 public:
     FBullCowGame();
@@ -33,8 +43,8 @@ public:
     int32 GetHiddenWordLength() const;
     bool IsGameWon() const;
     void Reset(); //TODO: richer returned value later
-    bool CheckGuessValidity(FString) const;
-    FBullCowCount SubmitGuess(FString);
+    EGuessStatus CheckGuessValidity(FString) const;
+    FBullCowCount SubmitValidGuess(FString);
 /* Other possibilities:
     int32  IsogramLength();
     bool ReuseIsogram();
@@ -46,6 +56,7 @@ private:
     int32 MyCurrentTry;
     int32 MyMaxTries;
     FString MyHiddenWord;
+    bool bGameIsWon;
 };
 
 

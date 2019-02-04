@@ -27,23 +27,20 @@ using int32 = int;
 // declare global function prototypes
 void PrintIntro();
 void PlayGame();
-int32 GetHiddenWordLength();
-FText GetValidGuess();
 void PrintGameSummary();
 bool PlayAgain();
+int32 GetHiddenWordLength();
+FText GetValidGuess();
 
 
-// declare global variables
+// declare global variables - can I get rid of this soon?
 FText Guess = "";
-/* NoOfTries no longer needed, MaxTries in class now
-int32 NoOfTries = 5;
-*/
 
 // Instantiate classes
 FBullCowGame BCGame;  //instantiate a new game
 
 int main() {
-	
+
 // play game
 	do {
 		PrintIntro();
@@ -65,9 +62,9 @@ void PrintIntro() {
 void PlayGame() {
 	BCGame.Reset();
 	int32 MyMaxTries = BCGame.GetMaxTries();
-	std::cout << MyMaxTries << std::endl;
-	//loop asking for guess while the game is NOT won and tries remain
+	std::cout << "You have up to " << MyMaxTries << " tries. Good Luck!" << std::endl;
 	
+	//loop asking for guess while the game is NOT won and tries remain
     while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MyMaxTries) {
         //Get Guess function
 		FText Guess = GetValidGuess(); //TODO: check guess valid
@@ -81,7 +78,6 @@ void PlayGame() {
 		//PrintBack(); Function now redundant
 
     }
-	//TODO: summarize game
 	PrintGameSummary();
 	return;
 }

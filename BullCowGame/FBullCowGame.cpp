@@ -11,6 +11,8 @@
 #define TMap std::map
 // remove? #include <string>
 
+#pragma once
+
 //substituting std::string with FString - Unreal standard for non-user output
 using FString = std::string;
 //substituting int with int32 - Unreal xplatform standard ensuring 32 bit int
@@ -19,15 +21,21 @@ using int32 = int;
 //constructor
 FBullCowGame::FBullCowGame() {Reset();}
 
-int32 FBullCowGame::GetMaxTries() const {return MyMaxTries;}
 int32 FBullCowGame::GetCurrentTry() const {return MyCurrentTry;}
 int32 FBullCowGame::GetHiddenWordLength() const {return int(MyHiddenWord.length());}
 bool FBullCowGame::IsGameWon() const {return bGameIsWon;}
 
+int32 FBullCowGame::GetMaxTries() const {
+    TMap<int32, int32> WordLengthToMaxTries {{3,5},{4,7},{5,10},{6,15}};
+    return WordLengthToMaxTries[int(MyHiddenWord.length())];
+}
+
 void FBullCowGame::Reset() {
-    const FString HIDDEN_WORD = "hornets";
-    constexpr int32 MAX_TRIES = 8;
-    MyMaxTries = MAX_TRIES;
+    // cattle related words: rib, pen, calf, shed, herd
+    // milk, veal, horn, stew, graze, mince, dairy, steak, bovine
+    const FString HIDDEN_WORD = "graze";
+//    constexpr int32 MAX_TRIES = 8; No longer needed
+//    MyMaxTries = MAX_TRIES;
     MyHiddenWord = HIDDEN_WORD;
     MyCurrentTry = 1;
     bGameIsWon = false;

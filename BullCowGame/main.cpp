@@ -9,12 +9,14 @@
 /*
  This is the console executable that makes use of the BullCowGame class.
  This act as the view in a MVC (Model-View-Control) pattern and is
- and is respnsible for all user interaction.
+ and is responsible for all user interaction.
  For game logic see the FBullCowGame class
  */
 #include <iostream>
 #include <string>
 #include "FBullCowGame.hpp"
+
+#pragma once
 
 //using namespace std;
 //^^ bad parctice (?) so commenting out and qualifying namespaces
@@ -55,14 +57,25 @@ int main() {
 // functions
 void PrintIntro() {
     //    std::cout << "Welcome to Bulls and Cows\n";
-    std::cout << "Welcome to Bulls and Cows" << std::endl;
+    std::cout << "         Welcome to Bulls and Cows" << std::endl;
+	std::cout << "         =========================" << std::endl << std::endl;
+	std::cout << "  \\       /" << std::endl;
+	std::cout << "   ~^---^~               ^----^ " << std::endl;
+	std::cout << "    |@ @|                {o\\ /o}" << std::endl;
+	std::cout << "   ( |\"|  -------        |    |------_" << std::endl;
+	std::cout << "   |  U    BULL  }-      ( \\66/  COW  \\-" << std::endl;
+	std::cout << "   |            / |      \\|           / |" << std::endl;
+	std::cout << "    ||| ---oo|||  *       ||| ---UUU||  * " << std::endl;
+	std::cout << "    |||    J |||          |||      |||" << std::endl;
+	std::cout << "    D D      D D          D D      D D" << std::endl;       ;
+	std::cout << "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" << std::endl;
     std::cout << "Can you guess the " << BCGame.GetHiddenWordLength() << " letter isogram word I am thinking of?\n";
 }
 
 void PlayGame() {
 	BCGame.Reset();
 	int32 MyMaxTries = BCGame.GetMaxTries();
-	std::cout << "You have up to " << MyMaxTries << " tries. Good Luck!" << std::endl;
+	std::cout << "You have up to " << MyMaxTries << " tries. Good Luck!" << std::endl << std::endl;
 	
 	//loop asking for guess while the game is NOT won and tries remain
     while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MyMaxTries) {
@@ -73,10 +86,7 @@ void PlayGame() {
 		FBullCowCount BullCowCount = BCGame.SubmitValidGuess(Guess);
 		// print number of bulls and cows
 		std::cout << "Bulls: " << BullCowCount.Bulls;
-		std::cout << "\nCows: " << BullCowCount.Cows << std::endl;
-		
-		//PrintBack(); Function now redundant
-
+		std::cout << "\nCows: " << BullCowCount.Cows << std::endl << std::endl;
     }
 	PrintGameSummary();
 	return;
@@ -87,30 +97,29 @@ FText GetValidGuess() {
 	do {
 		// get the players Guess
 		int32 CurrentTry = BCGame.GetCurrentTry();
-		std::cout << "Try " << CurrentTry << ". Enter your guess: ";
+		std::cout << "Try " << CurrentTry << " of " << BCGame.GetMaxTries() <<". Enter your guess: ";
 		std::getline (std::cin,Guess);
 		//check Guess is valid
 		Status = BCGame.CheckGuessValidity(Guess);
 		switch (Status) {
 			case EGuessStatus::Not_Isogram:
-				std::cout << "Your guess is not an Isogram, all letters should be different";
+				std::cout << "Your guess is not an Isogram, all letters should be different\n\n";
 				break;
 			case EGuessStatus::Not_Enough_Letters:
-				std::cout << "Guess too short! Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n";
+				std::cout << "Guess too short! Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n\n";
 				break;
 			case EGuessStatus::Too_Many_Letters:
-				std::cout << "Guess too long! Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n";
+				std::cout << "Guess too long! Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n\n";
 				break;
 			case EGuessStatus::Non_Alphabetic_Characters:
-				std::cout << "Guess contains non-Alphabetic characters!\n";
+				std::cout << "Guess contains non-Alphabetic characters!\n\n";
 				break;
 			case EGuessStatus::Not_Lower_Case:
-				std::cout << "Guess should be all lower case characters. (Check Caps Lock is off?)\n";
+				std::cout << "Guess should be all lower case characters. (Check Caps Lock is off?)\n\n";
 				break;
 			default:
 				return Guess;
 		}
-		std::cout << std::endl;
 	} while (Status != EGuessStatus::OK);
 	return Guess;
 }
